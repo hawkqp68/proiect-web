@@ -10,8 +10,7 @@ function submitForm() {
 
     console.warn("Goodbye World!");
 
+ 
+    
 
-    // const acum=new Date();
-    // const ora=now.getHours();
-    // const Header=document.querySelector("")
 }
