@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prezentare personală</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    
+<header>
+    <h1>Radu Bogdan-Ionut</h1>
+    <p>Student - Stiinta Calculataorelor si Calculatoare</p>
+    
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#about">Despre</a></li>
+        <li><a href="#education">Educație</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<main>
+
+    <section id="about">
+        <h2>Despre mine</h2>
+        <img src="images/profil.jpg"
+             alt="Fotografie de profil"
+             loading="lazy">
+        <p>
+            Sunt pasionat de programare web și îmi doresc să devin  full-stack developer.
+            Îmi place să învăț tehnologii noi și să creez aplicații interactive.
+        </p>
+    </section>
+
+    <section id="education">
+        <h2>Educație</h2>
+        <ol>
+            <li>2024 - Prezent: IESC Calculatoare</li>
+            <li>2021 - 2024: Liceu Matematică-Informatică</li>
+        </ol>
+    </section>
+
+</main>
+
+<aside>
+    <h3>Hobby-uri</h3>
+    <p>Programare</p>
+    <p>Gaming</p>
+    <p>Sport</p>
+</aside>
+
+<footer id="contact">
+    <p>© 2025 Radu Bogdan-Ionut | Email: bogdan88.radu@email.com</p>
+
+    <form>
+        <label for="name">Nume:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Mesaj:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <button type="button" onclick="submitForm()">Trimite</button>
+    </form>
+
+</footer>
+<script>
+    console.log("Hello World!");
+</script>
+<script src="contact-form.js"></script>
+</body>
+</html>
