@@ -1,45 +1,45 @@
 const lista = document.querySelectorAll("#education li");
 
-let educatie = [];
-
-lista.forEach(function(item){
-    educatie.push(item.textContent);
+const educatie = Array.from(lista).map(function(el){
+    return el.textContent;
 });
 
 console.log(educatie);
 
 
-let filtru1 = educatie.filter(function(e){
+const filtru2024 = educatie.filter(function(e){
     return e.includes("2024");
 });
 
-console.log(filtru1);
+console.log(filtru2024);
 
 
-let filtru2 = educatie.filter(function(e){
+const filtruLiceu = educatie.filter(function(e){
     return e.includes("Liceu");
 });
 
-console.log(filtru2);
+console.log(filtruLiceu);
 
 
-let primeleCuvinte = educatie.map(function(e){
+const primulCuvant = educatie.map(function(e){
     return e.split(" ")[0];
 });
 
-console.log(primeleCuvinte);
+console.log(primulCuvant);
 
 
-let total = educatie.reduce(function(suma, e){
+const ani = educatie.map(function(e){
+    const nr = e.match(/\d{4}/g);
 
-    let ani = e.match(/\d{4}/g);
-
-    if(ani.length == 2){
-        return suma + (ani[1] - ani[0]);
+    if(nr.length == 2){
+        return nr[1] - nr[0];
     }
 
-    return suma;
+    return 0;
+});
 
+const total = ani.reduce(function(s, x){
+    return s + x;
 }, 0);
 
 console.log("Total ani de studiu:", total);
