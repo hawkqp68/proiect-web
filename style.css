@@ -223,3 +223,6 @@ body.dark-mode {
     --text-color: #e0e0e0;
     --white: #16213e;
 }
+.hidden {
+    display: none;
+}
