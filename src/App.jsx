@@ -1,21 +1,22 @@
+import Card from './Card';
+
 function App() {
- return (
- <div>
- <h1>Dashboard</h1>
- <p>Radu Bogdan-Ionut</p>
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <p>Radu Bogdan-Ionut</p>
 
- <h2>Sectiuni</h2>
-  <ul>
+      <h2>Sectiuni</h2>
+      <ul>
+        <li>Profil</li>
+        <li>Setari</li>
+        <li>Notificari</li>
+      </ul>
 
-   <li>Profil</li>
-   <li>Setari</li>
-    <li>Notificari</li>
-    
+      <Card />
 
-
-
-  </ul>
- </div>
- );
+    </div>
+  );
 }
+
 export default App;
