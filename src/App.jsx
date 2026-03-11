@@ -1,6 +1,14 @@
 import Card from './Card';
 
 function App() {
+  const projects = [
+    { title: "Proiect 1", description: "Pagina personala" },
+    { title: "Proiect 2", description: "Calculator buget" },
+    { title: "Proiect 3", description: "Dashboard React" },
+    { title: "Proiect 4", description: "Aplicatie de notite" },
+    { title: "Proiect 5", description: "Joc de memorie" }
+  ];
+  
   return (
     <div>
       <h1>Dashboard</h1>
@@ -12,9 +20,9 @@ function App() {
         <li>Setari</li>
         <li>Notificari</li>
       </ul>
-<Card title="Proiect 1" description="Pagina personala cu HTML si CSS" />
-<Card title="Proiect 2" description="Pagina interactiva cu JavaScript" />
-<Card title="Proiect 3" description="Dashboard cu React" />
+      {projects.map((project, index) => (
+        <Card key={index} title={project.title} description={project.description} />
+      ))  }
       
 
     </div>
