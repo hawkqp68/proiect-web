@@ -11,6 +11,12 @@ function ToDoList()
           setTodos([...todos, input]); // Creeaza array NOU cu tot ce era + input
           setInput(''); 
     }
+
+   function handleDelete(index) {
+    setTodos(todos.filter(function(_, i) {
+   return i !== index;
+   }));
+  }
 return (
  <div>
  <h3>Todo List</h3>
@@ -21,7 +27,10 @@ return (
  />
  <button onClick={handleAdd}>Adauga</button>
        {        <ul>
-                {todos.map((todo, index) => ( <li key={index}>{todo}</li>))}
+                {todos.map((todo, index) => ( <li key={index}>
+                    {todo}
+                    <button onClick={() => handleDelete(index)}>Sterge Task</button>
+                    </li>))}
             </ul>
             
        }
