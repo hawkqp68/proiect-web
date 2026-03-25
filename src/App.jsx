@@ -2,14 +2,14 @@ import Card from './Card';
 import { useState } from 'react';   
 import QuickNote from './QuickNote';
 import TodoList from './ToDoList';
+import ContactForm from './ContactForm';
 
 function App() {
   const projects = [
     { title: "Proiect 1", description: "Pagina personala" },
     { title: "Proiect 2", description: "Calculator buget" },
     { title: "Proiect 3", description: "Dashboard React" },
-    { title: "Proiect 4", description: "Aplicatie de notite" },
-    { title: "Proiect 5", description: "Joc de memorie" }
+    
   ];
 
   const [count, setCount] = useState(0);
@@ -21,14 +21,14 @@ function App() {
       <h1>Pagina mea</h1>
       <p>Radu Bogdan-Ionut</p>
 
-      {/* Toate butoanele + contorul într-un singur <p> */}
+      
       <p>
         <button onClick={() => setCount(count + 1)}>+1</button>
-        {' '}
+       
         <button onClick={() => setCount(count - 1)}>-1</button>
-        {' '}
+        
         <button onClick={() => setCount(0)}>Reset</button>
-        {' '}Ai apasat de {count} ori.
+        Ai apasat de {count} ori.
       </p>
 
       <h2>Sectiuni</h2>
@@ -43,7 +43,8 @@ function App() {
       ))}
 
       <QuickNote />
-      <TodoList />
+      <TodoList /> 
+      <ContactForm />
     </div>
   );
 }
