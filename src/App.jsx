@@ -1,4 +1,6 @@
 import Card from './Card';
+import { useState } from 'react';   
+
 
 function App() {
   const projects = [
@@ -8,11 +10,30 @@ function App() {
     { title: "Proiect 4", description: "Aplicatie de notite" },
     { title: "Proiect 5", description: "Joc de memorie" }
   ];
+
+  const[count, setCount] = useState(0);
+  
   
   return (
     <div>
-      <h1>Dashboard</h1>
+
+      <h1>Pagina mea</h1>
       <p>Radu Bogdan-Ionut</p>
+
+       <p> <button onClick={() => setCount(count + 1)}>Click</button>
+    Ai apasat de {count} ori.
+  </p>
+
+       <p>  
+        <button onClick= {() => setCount(count -1)}>Scade</button>
+        Ai apasat de {count} ori.
+
+        
+       </p>
+       <p>
+        <button onClick={() => setCount(0)}>Reset</button>
+
+       </p>
 
       <h2>Sectiuni</h2>
       <ul>
@@ -20,6 +41,8 @@ function App() {
         <li>Setari</li>
         <li>Notificari</li>
       </ul>
+      
+   
       {projects.map((project, index) => (
         <Card key={index} title={project.title} description={project.description} />
       ))  }
