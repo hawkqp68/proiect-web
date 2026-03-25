@@ -1,6 +1,6 @@
 import Card from './Card';
 import { useState } from 'react';   
-
+import QuickNote from './QuickNote';
 
 function App() {
   const projects = [
@@ -11,29 +11,22 @@ function App() {
     { title: "Proiect 5", description: "Joc de memorie" }
   ];
 
-  const[count, setCount] = useState(0);
-  
+  const [count, setCount] = useState(0);
   
   return (
     <div>
-
       <h1>Pagina mea</h1>
       <p>Radu Bogdan-Ionut</p>
 
-       <p> <button onClick={() => setCount(count + 1)}>Click</button>
-    Ai apasat de {count} ori.
-  </p>
-
-       <p>  
-        <button onClick= {() => setCount(count -1)}>Scade</button>
-        Ai apasat de {count} ori.
-
-        
-       </p>
-       <p>
+      {/* Toate butoanele + contorul într-un singur <p> */}
+      <p>
+        <button onClick={() => setCount(count + 1)}>+1</button>
+        {' '}
+        <button onClick={() => setCount(count - 1)}>-1</button>
+        {' '}
         <button onClick={() => setCount(0)}>Reset</button>
-
-       </p>
+        {' '}Ai apasat de {count} ori.
+      </p>
 
       <h2>Sectiuni</h2>
       <ul>
@@ -41,13 +34,12 @@ function App() {
         <li>Setari</li>
         <li>Notificari</li>
       </ul>
-      
-   
+
       {projects.map((project, index) => (
         <Card key={index} title={project.title} description={project.description} />
-      ))  }
-      
+      ))}
 
+      <QuickNote />
     </div>
   );
 }
