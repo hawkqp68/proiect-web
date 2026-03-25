@@ -1,6 +1,7 @@
 import Card from './Card';
 import { useState } from 'react';   
 import QuickNote from './QuickNote';
+import TodoList from './ToDoList';
 
 function App() {
   const projects = [
@@ -12,6 +13,8 @@ function App() {
   ];
 
   const [count, setCount] = useState(0);
+  
+
   
   return (
     <div>
@@ -40,6 +43,7 @@ function App() {
       ))}
 
       <QuickNote />
+      <TodoList />
     </div>
   );
 }
