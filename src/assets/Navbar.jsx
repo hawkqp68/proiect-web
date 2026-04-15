@@ -1,10 +1,10 @@
-import { Link } from 'react-router';
+import { NavLink } from 'react-router';
 function Navbar() {
  return (
- <nav>
- <Link to="/">Home</Link>
- <Link to="/projects">Proiecte</Link>
- <Link to="/contact">Contact</Link>
+ <nav className="nav">
+ <NavLink to="/" className={function({isActive}) { return isActive ? 'active' : ''; }}>Home</NavLink>
+ <NavLink to="/projects" className={function({isActive}) { return isActive ? 'active' : ''; }}>Proiecte</NavLink>
+ <NavLink to="/contact" className={function({isActive}) { return isActive ? 'active' : ''; }}>Contact</NavLink>
  </nav>
  );
 }

@@ -108,3 +108,17 @@ li button {
 li button:hover {
   background: #dc2626;
 }
+nav {
+ display: flex;
+ gap: 15px;
+ padding: 15px;
+ background: #2C3E50;
+}
+nav a {
+ color: white;
+ text-decoration: none;
+ padding: 8px 16px;
+ border-radius: 6px;
+}
+nav a:hover { background: #34495E; }
+nav a.active { background: #FF7733; }
