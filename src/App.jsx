@@ -5,6 +5,7 @@ import TodoList from './ToDoList';
 import ContactForm from './ContactForm';
 import Clock from './Clock';
 import ProjectList from './ProjectsList';
+import Users from './Users';
 
 function App() {
   const projects = [
@@ -44,6 +45,8 @@ function App() {
     
 
       <ProjectList />
+      
+      <Users />
       
       <QuickNote />
       <TodoList /> 
