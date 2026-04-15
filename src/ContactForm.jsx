@@ -8,7 +8,7 @@ function ContactForm() {
 
     function handleSubmit() {
         if(name.trim() === '' || email.trim() === '' || message.trim() === '') {
-            setFeedback('Te rog completeaza toate campurile.');
+            setFeedback('completeaza toate campurile!');
         }   else {  
             setFeedback(`Multumim pentru mesaj, ${name}! Te vom contacta la ${email}.`);
             setName('');

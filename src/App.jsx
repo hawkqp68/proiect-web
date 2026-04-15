@@ -3,6 +3,8 @@ import { useState } from 'react';
 import QuickNote from './QuickNote';
 import TodoList from './ToDoList';
 import ContactForm from './ContactForm';
+import Clock from './Clock';
+import ProjectList from './ProjectsList';
 
 function App() {
   const projects = [
@@ -20,13 +22,10 @@ function App() {
     <div>
       <h1>Pagina mea</h1>
       <p>Radu Bogdan-Ionut</p>
-
       
       <p>
         <button onClick={() => setCount(count + 1)}>+1</button>
-       
         <button onClick={() => setCount(count - 1)}>-1</button>
-        
         <button onClick={() => setCount(0)}>Reset</button>
         Ai apasat de {count} ori.
       </p>
@@ -42,9 +41,14 @@ function App() {
         <Card key={index} title={project.title} description={project.description} />
       ))}
 
+    
+
+      <ProjectList />
+      
       <QuickNote />
       <TodoList /> 
       <ContactForm />
+      <Clock />
     </div>
   );
 }
