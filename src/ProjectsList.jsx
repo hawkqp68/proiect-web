@@ -46,7 +46,7 @@ function ProjectList() {
  }).map(function(project) {
  return <Card key={project.id} title={project.title} description={project.tech} />;
  })}
- <div style={{marginTop: '20px', padding: '10px', backgroundColor: '#f5f5f5', borderRadius: '5px'}}>
+ <div style={{marginTop: '20px', padding: '10px', backgroundColor: 'rgba(15, 23, 42, 0.8)', borderRadius: '5px'}}>
  <p><strong>Total proiecte:</strong> {projects.length}</p>
  <p><strong>Finalizate:</strong> {projects.filter(function(p) { return p.done; }).length}</p>
  <p><strong>In lucru:</strong> {projects.filter(function(p) { return !p.done; }).length}</p>
