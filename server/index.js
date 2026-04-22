@@ -1,6 +1,8 @@
 const express= require('express');
 const app= express();   
 const PORT=3000;
+
+
 // Prima ruta: raspunde la GET /
 app.get('/', function(req, res) {
  res.json({ message: 'Serverul functioneaza!' });
@@ -16,6 +18,22 @@ const projects = [
 app.get('/api/projects', function(req, res) {
  res.json(projects);
 });
+
+app.get('/api/projects/:id', function(req, res) {
+    const project = projects.find(p => p.id === parseInt(req.params.id));
+    if(!project) { return res.status(404).json({ error: 'Proiectul nu a fost gasit' }); }
+    res.json(project);
+});
+
+
+app.get('/api/stats', function(req, res) {
+  res.json({
+    total: projects.length,
+    done: projects.filter(p => p.done).length,
+    inProgress: projects.filter(p => !p.done).length,
+  });
+});
+
 // Porneste serverul
 app.listen(PORT, function() {
  console.log('Server pornit pe http://localhost:' + PORT);
