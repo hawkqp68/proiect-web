@@ -1,7 +1,7 @@
 const express= require('express');
 const app= express();   
 const PORT=3000;
-git
+
 app.use(express.json());
 // Prima ruta: raspunde la GET /
 app.get('/', function(req, res) {
@@ -45,9 +45,18 @@ app.post('/api/projects', function(req, res)
  };
  projects.push(newProject);
  res.status(201).json(newProject);
- 
+
 });
 
+app.delete('/api/projects/:id', function(req, res) { 
+
+    const projectid=parseInt(req.params.id);
+    const index=projects.findIndex(p=>p.id===projectid);
+    if(index===-1) { return res.status(404).json({ error: 'Proiectul nu a fost gasit' }); }
+    projects.splice(index,1);
+    res.json({ message: 'Proiectul a fost sters' });
+
+})
 
 // Porneste serverul
 app.listen(PORT, function() {
