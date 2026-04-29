@@ -1,5 +1,14 @@
 const express= require('express');
-const app= express();   
+const app= express();  
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/dashboard')
+ .then(function() {
+ console.log('Conectat la MongoDB!');
+ })
+ .catch(function(err) {
+ console.error('Eroare conectare MongoDB:', err);
+ });
+
 const PORT=3000;
 
 app.use(express.json());
