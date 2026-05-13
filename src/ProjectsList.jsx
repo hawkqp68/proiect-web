@@ -7,6 +7,9 @@ function ProjectList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
+  const [editingId, setEditingId] = useState(null);
+  const [editTech, setEditTech] = useState('');
+  const [editTitle, setEditTitle] = useState('');
 
   useEffect(function() {
     fetch('http://localhost:3000/api/projects')
@@ -28,41 +31,55 @@ function ProjectList() {
     setProjects([...projects, newProject]);
   }
 
-   async function handleToggle(id, currentDone) {
-  try {
-    const response = await fetch('http://localhost:3000/api/projects/' + id, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ done: !currentDone })
-    });
+  async function handleToggle(id, currentDone) {
+    try {
+      const response = await fetch('http://localhost:3000/api/projects/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ done: !currentDone })
+      });
 
-    if (!response.ok) {
-      const text = await response.text();
-      throw new Error('Server error: ' + response.status + ' - ' + text);
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error('Server error: ' + response.status + ' - ' + text);
+      }
+
+      const updatedProject = await response.json();
+      setProjects(projects.map(p => p._id === id ? updatedProject : p));
+    } catch (err) {
+      console.error('Eroare la toggling status:', err);
+      alert('A intervenit o eroare la salvare: ' + err.message);
     }
-
-    const updatedProject = await response.json();
-    setProjects(projects.map(p => p._id === id ? updatedProject : p));
-  } catch (err) {
-    console.error('Eroare la toggling status:', err);
-    alert('A intervenit o eroare la salvare: ' + err.message);
   }
-}
 
+  // ← NOU: funcție pentru salvarea editării
+  async function handleSave(id) {
+    try {
+      const response = await fetch('http://localhost:3000/api/projects/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: editTitle, tech: editTech })
+      });
 
+      if (!response.ok) throw new Error('Eroare la salvare');
 
-  // ← Funcție nouă pentru ștergere
+      const updatedProject = await response.json();
+      setProjects(projects.map(p => p._id === id ? updatedProject : p));
+      setEditingId(null);
+    } catch (err) {
+      console.error('Eroare:', err);
+      alert('A intervenit o eroare la salvare: ' + err.message);
+    }
+  }
+
   async function handleDelete(id) {
     try {
       const response = await fetch('http://localhost:3000/api/projects/' + id, {
         method: 'DELETE',
       });
 
-      if (!response.ok) {
-        throw new Error('Eroare la ștergere');
-      }
+      if (!response.ok) throw new Error('Eroare la ștergere');
 
-      // Elimină proiectul din state fără refresh
       setProjects(projects.filter(function(p) { return p._id !== id; }));
     } catch (err) {
       console.error('Eroare:', err);
@@ -88,6 +105,40 @@ function ProjectList() {
       {projects.filter(function(p) {
         return p.title.toLowerCase().includes(search.toLowerCase());
       }).map(function(project) {
+
+        // ← NOU: dacă acest proiect e în editare, afișăm formularul
+        if (editingId === project._id) {
+          return (
+            <div key={project._id} style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '8px 0' }}>
+              <input
+                value={editTitle}
+                onChange={e => setEditTitle(e.target.value)}
+                placeholder="Titlu"
+                style={{ padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }}
+              />
+              <input
+                value={editTech}
+                onChange={e => setEditTech(e.target.value)}
+                placeholder="Tehnologie"
+                style={{ padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }}
+              />
+              <button
+                onClick={() => handleSave(project._id)}
+                style={{ backgroundColor: '#10b981', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
+              >
+                Salvează
+              </button>
+              <button
+                onClick={() => setEditingId(null)}
+                style={{ backgroundColor: '#6b7280', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
+              >
+                Anulează
+              </button>
+            </div>
+          );
+        }
+
+        // cardul normal
         return (
           <div key={project._id} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Card title={project.title} description={project.tech} />
@@ -101,7 +152,18 @@ function ProjectList() {
               >
                 {project.done ? 'Marchează în lucru' : 'Marchează finalizat'}
               </button>
-              {/* ← Buton de ștergere */}
+
+              <button
+                onClick={() => {
+                  setEditingId(project._id);
+                  setEditTitle(project.title);
+                  setEditTech(project.tech);
+                }}
+                style={{ backgroundColor: '#3b82f6', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
+              >
+                Editează
+              </button>
+
               <button
                 onClick={function() { handleDelete(project._id); }}
                 style={{ backgroundColor: 'red', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
