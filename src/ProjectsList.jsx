@@ -102,13 +102,12 @@ function ProjectList() {
 
       <AddProject onAdd={handleAddProject} />
 
-      <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '12px' }}>
+      <div className="controls">
         <input
           type="text"
           placeholder="Cauta dupa titlu..."
           value={search}
           onChange={function(e) { setSearch(e.target.value); }}
-          style={{ flex: 1 }}
         />
 
         <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>

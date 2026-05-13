@@ -145,13 +145,44 @@ nav a.active { background: #FF7733; }
 .project-title { margin: 0 0 6px 0; color: #e6f4ff; }
 .project-desc { margin: 0; color: #cbd5e1; font-size: 0.95rem; }
 
+
 .action-buttons { display: flex; gap: 8px; align-items: center; }
 .project-status { font-size: 0.9rem; color: #94a3b8; min-width: 80px; }
 
-.btn-toggle { background: linear-gradient(135deg,#10b981,#059669); color: white; padding: 8px 12px; border-radius: 8px; border: none; cursor: pointer; }
-.btn-toggle:hover { opacity: 0.95; transform: translateY(-2px); }
-.btn-edit { background: linear-gradient(135deg,#3b82f6,#2563eb); color: white; padding: 8px 12px; border-radius: 8px; border: none; cursor: pointer; }
-.btn-delete { background: linear-gradient(135deg,#ef4444,#dc2626); color: white; padding: 8px 12px; border-radius: 8px; border: none; cursor: pointer; }
+/* Unified button appearance for action buttons */
+.action-buttons button {
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, opacity 0.14s ease;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.3);
+  font-weight: 600;
+  min-width: 120px;
+}
+.action-buttons button:active { transform: translateY(1px) scale(0.99); }
+.action-buttons button:focus { outline: 3px solid rgba(99,102,241,0.18); outline-offset: 2px; }
+
+/* Toggle button: green for pending, orange for already done (to mark back to in-progress) */
+.project-pending .btn-toggle { background: linear-gradient(135deg,#10b981,#059669); }
+.project-done .btn-toggle { background: linear-gradient(135deg,#f59e0b,#d97706); }
+.btn-toggle:hover { transform: translateY(-2px); opacity: 0.98; }
+
+/* Edit button: blue */
+.btn-edit { background: linear-gradient(135deg,#3b82f6,#2563eb); }
+.btn-edit:hover { transform: translateY(-2px); }
+
+/* Delete button: red, emphasize danger */
+.btn-delete { background: linear-gradient(135deg,#ef4444,#dc2626); }
+.btn-delete:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(239,68,68,0.24); }
+
+/* Disabled state */
+.action-buttons button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
 
 /* Add project form adjustments */
 .add-project { padding: 16px; }
@@ -159,3 +190,36 @@ nav a.active { background: #FF7733; }
 .form-input { padding: 10px 12px; border-radius: 8px; border: 1px solid #334155; background: #020617; color: #e5e7eb; }
 .btn-add { background: linear-gradient(135deg,#10b981,#059669); color: white; padding: 10px 14px; border-radius: 10px; border: none; cursor: pointer; width: fit-content; }
 .error-text { color: #f87171; }
+
+/* Controls (search + filters) styling */
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.controls input,
+.controls select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.9));
+  color: #e5e7eb;
+  outline: none;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.35);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.controls input::placeholder { color: #94a3b8; }
+.controls input { flex: 1 1 220px; min-width: 160px; }
+.controls select { min-width: 160px; cursor: pointer; background-color: #071025; color: #e5e7eb; }
+.controls select option { background-color: #071025; color: #e5e7eb; }
+.controls input:focus, .controls select:focus { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(56,189,248,0.06); }
+
+@media (max-width: 640px) {
+  .controls input { flex-basis: 100%; }
+  .controls select { flex-basis: 48%; }
+}
