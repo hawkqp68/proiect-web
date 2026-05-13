@@ -28,6 +28,29 @@ function ProjectList() {
     setProjects([...projects, newProject]);
   }
 
+   async function handleToggle(id, currentDone) {
+  try {
+    const response = await fetch('http://localhost:3000/api/projects/' + id, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ done: !currentDone })
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error('Server error: ' + response.status + ' - ' + text);
+    }
+
+    const updatedProject = await response.json();
+    setProjects(projects.map(p => p._id === id ? updatedProject : p));
+  } catch (err) {
+    console.error('Eroare la toggling status:', err);
+    alert('A intervenit o eroare la salvare: ' + err.message);
+  }
+}
+
+
+
   // ← Funcție nouă pentru ștergere
   async function handleDelete(id) {
     try {
@@ -68,13 +91,24 @@ function ProjectList() {
         return (
           <div key={project._id} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Card title={project.title} description={project.tech} />
-            {/* ← Buton nou de ștergere */}
-            <button
-              onClick={function() { handleDelete(project._id); }}
-              style={{ backgroundColor: 'red', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
-            >
-              Șterge
-            </button>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.9rem', color: project.done ? 'green' : 'orange' }}>
+                {project.done ? 'Finalizat' : 'În lucru'}
+              </span>
+              <button
+                onClick={function() { handleToggle(project._id, project.done); }}
+                style={{ backgroundColor: project.done ? '#f59e0b' : '#10b981', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
+              >
+                {project.done ? 'Marchează în lucru' : 'Marchează finalizat'}
+              </button>
+              {/* ← Buton de ștergere */}
+              <button
+                onClick={function() { handleDelete(project._id); }}
+                style={{ backgroundColor: 'red', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
+              >
+                Șterge
+              </button>
+            </div>
           </div>
         );
       })}

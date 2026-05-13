@@ -17,6 +17,12 @@ const Project = require('./models/Project');
 
 app.use(express.json());
 
+// Simple request logger to help debugging
+app.use(function(req, res, next) {
+  console.log(new Date().toISOString(), req.method, req.url);
+  next();
+});
+
 // GET / - test server
 app.get('/', function(req, res) {
   res.json({ message: 'Serverul functioneaza!' });
@@ -66,6 +72,19 @@ app.delete('/api/projects/:id', async function(req, res) {
     res.json({ message: 'Deleted' });
   } catch (err) {
     res.status(400).json({ error: 'ID invalid' });
+  }
+});
+
+app.put('/api/projects/:id', async function(req, res) {
+  console.log('PUT /api/projects/:id called with id=', req.params.id, 'body=', req.body);
+  try {
+    const updated = await Project.findByIdAndUpdate(
+      req.params.id, req.body, { new: true }
+    );
+    if (!updated) return res.status(404).json({ error: 'Not found' });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
 });
 
