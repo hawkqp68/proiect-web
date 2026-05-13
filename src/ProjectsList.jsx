@@ -145,34 +145,26 @@ function ProjectList() {
 
         // cardul normal
         return (
-          <div key={project._id} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div key={project._id} className={"project-card " + (project.done ? 'project-done' : 'project-pending')}>
             <Card title={project.title} description={project.tech} />
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <span style={{ fontSize: '0.9rem', color: project.done ? 'green' : 'orange' }}>
-                {project.done ? 'Finalizat' : 'În lucru'}
-              </span>
-              <button
-                onClick={function() { handleToggle(project._id, project.done); }}
-                style={{ backgroundColor: project.done ? '#f59e0b' : '#10b981', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
-              >
+            <div className="action-buttons">
+              <span className="project-status">{project.done ? 'Finalizat' : 'În lucru'}</span>
+              <button className={"btn-toggle"} onClick={function() { handleToggle(project._id, project.done); }}>
                 {project.done ? 'Marchează în lucru' : 'Marchează finalizat'}
               </button>
 
               <button
+                className="btn-edit"
                 onClick={() => {
                   setEditingId(project._id);
                   setEditTitle(project.title);
                   setEditTech(project.tech);
                 }}
-                style={{ backgroundColor: '#3b82f6', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
               >
                 Editează
               </button>
 
-              <button
-                onClick={function() { handleDelete(project._id); }}
-                style={{ backgroundColor: 'red', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}
-              >
+              <button className="btn-delete" onClick={function() { handleDelete(project._id); }}>
                 Șterge
               </button>
             </div>

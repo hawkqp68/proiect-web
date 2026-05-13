@@ -41,34 +41,30 @@ function AddProject({ onAdd }) {
   }
 
   return (
-    <div style={{ marginBottom: '20px', padding: '15px', backgroundColor: 'rgba(15, 23, 42, 0.8)', borderRadius: '5px' }}>
+    <div className="card add-project">
       <h4>Adaugă proiect nou</h4>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-text">{error}</p>}
 
-      <div>
+      <form onSubmit={function(e) { e.preventDefault(); handleSubmit(e); }} className="add-form">
         <input
+          className="form-input"
           type="text"
           placeholder="Titlu proiect..."
           value={title}
           onChange={function(e) { setTitle(e.target.value); }}
-          style={{ display: 'block', marginBottom: '8px', padding: '6px', width: '100%' }}
         />
         <input
+          className="form-input"
           type="text"
           placeholder="Tehnologii (ex: React, Node)..."
           value={tech}
           onChange={function(e) { setTech(e.target.value); }}
-          style={{ display: 'block', marginBottom: '8px', padding: '6px', width: '100%' }}
         />
-        <button
-          onClick={handleSubmit}
-          disabled={loading}
-          style={{ padding: '8px 16px', cursor: loading ? 'not-allowed' : 'pointer' }}
-        >
+        <button className="btn-add" type="submit" disabled={loading}>
           {loading ? 'Se adaugă...' : 'Adaugă proiect'}
         </button>
-      </div>
+      </form>
     </div>
   );
 }
