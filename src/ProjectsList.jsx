@@ -31,6 +31,9 @@ function ProjectList() {
     setProjects([...projects, newProject]);
   }
 
+    
+    
+
   async function handleToggle(id, currentDone) {
     try {
       const response = await fetch('http://localhost:3000/api/projects/' + id, {
@@ -52,7 +55,7 @@ function ProjectList() {
     }
   }
 
-  // ← NOU: funcție pentru salvarea editării
+  
   async function handleSave(id) {
     try {
       const response = await fetch('http://localhost:3000/api/projects/' + id, {
@@ -73,6 +76,7 @@ function ProjectList() {
   }
 
   async function handleDelete(id) {
+    if (!window.confirm('Sigur doriti sa stergeti acest proiect?')) return;
     try {
       const response = await fetch('http://localhost:3000/api/projects/' + id, {
         method: 'DELETE',
@@ -83,6 +87,7 @@ function ProjectList() {
       setProjects(projects.filter(function(p) { return p._id !== id; }));
     } catch (err) {
       console.error('Eroare:', err);
+      alert('Nu s-a putut șterge proiectul: ' + err.message);
     }
   }
 
